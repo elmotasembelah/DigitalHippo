@@ -1,0 +1,29 @@
+ctrl m : used on the open tag of an element and it chooses everything from the open to the closing tag
+
+alt shift 0 : removes unsed impoerts and sorts existing ones
+
+shift scroll to scroll horizanltlly
+
+to choose a chunk of html text: click on the starting tag scroll down to the closing tag and press shift click and i will select all of it 
+
+cn(stringOfTWClasses, optionalClasses) : a funciton comming from shadcn, which allows us to applu classes conditionaly which overrides the classes in the default string
+
+files run by server <can't use @>
+
+    collections
+    trpc
+
+
+todo
+
+todo (deployment)
+
+    railwway host
+    stripe secret key
+    test the stripe webhook
+
+    a8ir el NEXT_PUBLIC_SERVER_URL ll link ele higele
+
+    f el get-payload a8ir el fromAddress value l link f3ln 34an a3rf ab3t lnas tania (video time = 04:40:35)
+
+    el useCart 3aiz a5ly nfs elproduct mit7t4 tani aw lma ams7 product mms74 8er awl wa7d 2la2eh
