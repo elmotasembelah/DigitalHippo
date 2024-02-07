@@ -6,7 +6,7 @@ var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.stripe = void 0;
 var stripe_1 = __importDefault(require("stripe"));
-exports.stripe = new stripe_1.default((_a = process.env.STRIPE_SECRET_KET) !== null && _a !== void 0 ? _a : "", {
+exports.stripe = new stripe_1.default((_a = process.env.STRIPE_SECRET_KEY) !== null && _a !== void 0 ? _a : "", {
     apiVersion: "2023-10-16", // this is what was should automaticlly as the auto complite
     typescript: true, // this only creates the flag that we are using typescript, but it don't do anything for now
 });
