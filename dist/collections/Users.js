@@ -30,13 +30,10 @@ exports.Users = {
     access: {
         read: adminsAndUser,
         create: function () { return true; },
-        update: function (_a) {
-            var user = _a.req.user;
-            return user.role === true;
-        }, // same as req.user.role
+        update: adminsAndUser,
         delete: function (_a) {
             var user = _a.req.user;
-            return user.role === true;
+            return user.role === "admin";
         }, // same as req.user.role
     },
     admin: {

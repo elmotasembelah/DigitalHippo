@@ -1,3 +1,4 @@
+import { text } from "body-parser";
 import { PrimaryActionEmailHtml } from "../components/emails/PrimaryActionEmail";
 import { User } from "payload/dist/auth";
 import { Access, CollectionConfig } from "payload/types";
@@ -30,8 +31,8 @@ export const Users: CollectionConfig = {
   access: {
     read: adminsAndUser,
     create: () => true,
-    update: ({ req: { user } }) => user.role === true, // same as req.user.role
-    delete: ({ req: { user } }) => user.role === true, // same as req.user.role
+    update: adminsAndUser,
+    delete: ({ req: { user } }) => user.role === "admin", // same as req.user.role
   },
   admin: {
     hidden: ({ user }) => user.role !== "admin",
