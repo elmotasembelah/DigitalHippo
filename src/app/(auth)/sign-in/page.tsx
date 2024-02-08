@@ -96,6 +96,7 @@ const SigninPage = () => {
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
+
           {/* sign in form */}
           <div className="grid gap-6 p-2">
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -136,6 +137,7 @@ const SigninPage = () => {
                 <Button disabled={isLoading}>Sign in</Button>
               </div>
             </form>
+
             <div className="relative">
               <div className="absolute inset-0 items-center" aria-hidden="true">
                 <span className="w-full border-t"></span>
@@ -165,6 +167,43 @@ const SigninPage = () => {
                 Continuo as a Seller
               </Button>
             )}
+
+            <div className="relative">
+              <div className="absolute inset-0 items-center" aria-hidden="true">
+                <span className="w-full border-t"></span>
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">
+                  Demo
+                </span>
+              </div>
+            </div>
+
+            {/* demo buttons */}
+            <div className="flex items-center  gap-4">
+              <Button
+                className="flex-1"
+                onClick={() =>
+                  signin({
+                    email: "elmotasembelahelsayed12@gmail.com",
+                    password: "password",
+                  })
+                }
+              >
+                Sign in as Admin
+              </Button>
+              <Button
+                className="flex-1"
+                onClick={() =>
+                  signin({
+                    email: "elmotasembelahelsayed@yahoo.com",
+                    password: "password",
+                  })
+                }
+              >
+                Sign in as User
+              </Button>
+            </div>
           </div>
         </div>
       </div>
