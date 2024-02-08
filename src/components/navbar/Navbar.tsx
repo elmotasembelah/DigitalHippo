@@ -23,6 +23,9 @@ const Navbar = async () => {
               <div className="ml-4 flex lg:ml-0">
                 <Link href="/">{<Icons.logo className="w-10 h-10" />} </Link>
               </div>
+              <div className="lg:hidden">
+                <Cart />
+              </div>
               <div className="hidden z-50 lg:ml-8 lg:block lg:self-stretch ">
                 <NavItems />
               </div>
