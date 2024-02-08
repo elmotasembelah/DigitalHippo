@@ -28,7 +28,7 @@ const PaymentStatus = ({ orderEmail, orderId, isPaid }: PaymentStatusProps) => {
   }, [data?.isPaid, router]);
 
   return (
-    <div className="mt-16 grid grid-cols-2 gap-x-4 text-sm text-gray-600">
+    <div className="mt-16 grid gap-y-4 text-sm text-gray-600 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-0">
       <div>
         <p className=" font-medium text-gray-900">Shipping To</p>
         <p>{orderEmail}</p>
