@@ -51,7 +51,7 @@ export default function Home() {
           title="Products"
           subtitle="These are some of the available products"
           href="/products"
-          query={{ sort: "desc", limit: 4 }}
+          query={{ sort: "asc", limit: 12 }}
         />
         {/* perks section */}
       </MaxWidthWrapper>
