@@ -48,8 +48,8 @@ export default function Home() {
         </div>
         {/* products */}
         <ProductReel
-          title="Title"
-          subtitle="this is the subtitle example"
+          title="Products"
+          subtitle="These are some of the available products"
           href="/products"
           query={{ sort: "desc", limit: 4 }}
         />

@@ -28,7 +28,7 @@ const page = ({ searchParams }: ProductsPageProps) => {
   return (
     <MaxWidthWrapper>
       <ProductReel
-        title={label ? label : "Browse high quality products"}
+        title={label ? label : "Browse High Quality Products"}
         query={{
           category,
           limit: 40,
