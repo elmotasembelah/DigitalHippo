@@ -196,7 +196,7 @@ const SigninPage = () => {
                 className="flex-1"
                 onClick={() =>
                   signin({
-                    email: "elmotasembelahelsayed@yahoo.com",
+                    email: "frodobaggins@gmail.com",
                     password: "password",
                   })
                 }
