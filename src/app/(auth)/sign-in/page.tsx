@@ -47,7 +47,7 @@ const SigninPage = () => {
       toast.error("Something went wrong. Please try again");
     },
     onSuccess: () => {
-      toast.success(`Sign in successfully`);
+      toast.success(`Signed in successfully`);
 
       if (origin) {
         router.push(`${origin}`);
