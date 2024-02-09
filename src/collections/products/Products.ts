@@ -9,7 +9,7 @@ import { stripe } from "../../lib/stripe";
 
 const addUser: BeforeChangeHook<Product> = async ({ req, data }) => {
   const user = req.user;
-  return { ...data, user };
+  return { ...data, user: user.id };
 };
 
 const onCreateAddStripeIdAndPriceId = async (product: Product) => {
