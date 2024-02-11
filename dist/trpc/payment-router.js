@@ -43,12 +43,12 @@ var server_1 = require("@trpc/server");
 var get_payload_1 = require("../get-payload");
 var stripe_1 = require("../lib/stripe");
 exports.paymentRouter = (0, trpc_1.router)({
-    createSesstion: trpc_1.privateProcedure
+    createSession: trpc_1.privateProcedure
         .input(zod_1.z.object({ productIds: zod_1.z.array(zod_1.z.string()) }))
         .mutation(function (_a) {
         var ctx = _a.ctx, input = _a.input;
         return __awaiter(void 0, void 0, void 0, function () {
-            var user, productIds, payload, products, filteredProducts, order, line_items, stripeSession, error_1;
+            var user, productIds, payload, products, filteredProducts, order, line_items, stripeSession, err_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -70,14 +70,12 @@ exports.paymentRouter = (0, trpc_1.router)({
                             })];
                     case 2:
                         products = (_b.sent()).docs;
-                        filteredProducts = products.filter(function (product) {
-                            return Boolean(product.priceId);
-                        });
+                        filteredProducts = products.filter(function (prod) { return Boolean(prod.priceId); });
                         return [4 /*yield*/, payload.create({
                                 collection: "orders",
                                 data: {
-                                    _isPaid: false, // this will be true when we are sure that the order has been payed
-                                    products: filteredProducts.map(function (product) { return product.id; }),
+                                    _isPaid: false,
+                                    products: filteredProducts.map(function (prod) { return prod.id; }),
                                     user: user.id,
                                 },
                             })];
@@ -91,10 +89,9 @@ exports.paymentRouter = (0, trpc_1.router)({
                             });
                         });
                         line_items.push({
-                            price: "price_1OfPMWFTPqNRH4gUVNzAbbTn", // this is the price id of the transaction fe from stripe dashboard (9.38.14 video)
+                            price: "price_1OCeBwA19umTXGu8s4p2G3aX",
                             quantity: 1,
                             adjustable_quantity: {
-                                // can i put more than one of this item, in our case no
                                 enabled: false,
                             },
                         });
@@ -104,21 +101,19 @@ exports.paymentRouter = (0, trpc_1.router)({
                         return [4 /*yield*/, stripe_1.stripe.checkout.sessions.create({
                                 success_url: "".concat(process.env.NEXT_PUBLIC_SERVER_URL, "/thank-you?orderId=").concat(order.id),
                                 cancel_url: "".concat(process.env.NEXT_PUBLIC_SERVER_URL, "/cart"),
-                                payment_method_types: ["card"],
-                                mode: "payment", // only one payment in a subscription
+                                payment_method_types: ["card", "paypal"],
+                                mode: "payment",
                                 metadata: {
-                                    // this is given back to us when the session is successful
-                                    userid: user.id,
+                                    userId: user.id,
                                     orderId: order.id,
                                 },
                                 line_items: line_items,
                             })];
                     case 5:
                         stripeSession = _b.sent();
-                        return [2 /*return*/, { url: stripeSession.url }]; // success url
+                        return [2 /*return*/, { url: stripeSession.url }];
                     case 6:
-                        error_1 = _b.sent();
-                        console.log(error_1);
+                        err_1 = _b.sent();
                         return [2 /*return*/, { url: null }];
                     case 7: return [2 /*return*/];
                 }
@@ -134,13 +129,12 @@ exports.paymentRouter = (0, trpc_1.router)({
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        orderId = input;
+                        orderId = input.orderId;
                         return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                     case 1:
                         payload = _b.sent();
                         return [4 /*yield*/, payload.find({
                                 collection: "orders",
-                                limit: 1,
                                 where: {
                                     id: {
                                         equals: orderId,
@@ -149,7 +143,7 @@ exports.paymentRouter = (0, trpc_1.router)({
                             })];
                     case 2:
                         orders = (_b.sent()).docs;
-                        if (orders.length) {
+                        if (!orders.length) {
                             throw new server_1.TRPCError({ code: "NOT_FOUND" });
                         }
                         order = orders[0];
