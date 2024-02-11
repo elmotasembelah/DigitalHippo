@@ -42,8 +42,6 @@ export const stripeWebhookHandler = async (
   if (event.type === "checkout.session.completed") {
     const payload = await getPayloadClient();
 
-    payload.logger.emit("the session was a success");
-
     // check if there is a user
     const { docs: users } = await payload.find({
       collection: "users",
@@ -57,8 +55,6 @@ export const stripeWebhookHandler = async (
     const [user] = users;
 
     if (!user) return res.status(404).json({ error: "No such user exists." });
-
-    payload.logger.emit("the user does exist");
 
     // update the order
     const { docs: orders } = await payload.find({
@@ -75,9 +71,6 @@ export const stripeWebhookHandler = async (
 
     if (!order) return res.status(404).json({ error: "No such order exists." });
 
-    payload.logger.emit("we got the right order");
-    payload.logger.emit(order.id, order._isPaid);
-
     await payload.update({
       collection: "orders",
       data: {
@@ -90,8 +83,6 @@ export const stripeWebhookHandler = async (
       },
     });
 
-    payload.logger.emit("updated _isPaid in the order");
-
     const { docs: updatedOrders } = await payload.find({
       collection: "orders",
       where: {
@@ -100,12 +91,6 @@ export const stripeWebhookHandler = async (
         },
       },
     });
-
-    payload.logger.emit(
-      "the order after updating",
-      updatedOrders[0].id,
-      updatedOrders[0]._isPaid
-    );
 
     // send receipt
     try {

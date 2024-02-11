@@ -157,7 +157,7 @@ const ThankYouPage = async ({ searchParams }: pageProps) => {
 
             <div className="mt-16 border-t border-gray-200 py-6 text-right">
               <Link
-                href={"/>products"}
+                href={"/products"}
                 className="text-sm font-medium text-blue-600 hover:text-blue-500"
               >
                 Continue Shopping &rarr;

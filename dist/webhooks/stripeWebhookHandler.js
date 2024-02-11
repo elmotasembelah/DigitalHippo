@@ -67,7 +67,6 @@ var stripeWebhookHandler = function (req, res) { return __awaiter(void 0, void 0
                 return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
             case 1:
                 payload = _c.sent();
-                payload.logger.emit("the session was a success");
                 return [4 /*yield*/, payload.find({
                         collection: "users",
                         where: {
@@ -81,7 +80,6 @@ var stripeWebhookHandler = function (req, res) { return __awaiter(void 0, void 0
                 user = users[0];
                 if (!user)
                     return [2 /*return*/, res.status(404).json({ error: "No such user exists." })];
-                payload.logger.emit("the user does exist");
                 return [4 /*yield*/, payload.find({
                         collection: "orders",
                         depth: 2,
@@ -96,8 +94,6 @@ var stripeWebhookHandler = function (req, res) { return __awaiter(void 0, void 0
                 order = orders[0];
                 if (!order)
                     return [2 /*return*/, res.status(404).json({ error: "No such order exists." })];
-                payload.logger.emit("we got the right order");
-                payload.logger.emit(order.id, order._isPaid);
                 return [4 /*yield*/, payload.update({
                         collection: "orders",
                         data: {
@@ -111,7 +107,6 @@ var stripeWebhookHandler = function (req, res) { return __awaiter(void 0, void 0
                     })];
             case 4:
                 _c.sent();
-                payload.logger.emit("updated _isPaid in the order");
                 return [4 /*yield*/, payload.find({
                         collection: "orders",
                         where: {
@@ -122,7 +117,6 @@ var stripeWebhookHandler = function (req, res) { return __awaiter(void 0, void 0
                     })];
             case 5:
                 updatedOrders = (_c.sent()).docs;
-                payload.logger.emit("the order after updating", updatedOrders[0].id, updatedOrders[0]._isPaid);
                 _c.label = 6;
             case 6:
                 _c.trys.push([6, 8, , 9]);
