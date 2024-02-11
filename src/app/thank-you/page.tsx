@@ -54,8 +54,8 @@ const ThankYouPage = async ({ searchParams }: pageProps) => {
 
   return (
     <main className="relative lg:min-h-full ">
-      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <div className="mx-auto w-1/2">
+      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 ">
+        <div className="mx-auto w-full lg:w-1/2 px-4">
           <p className="text-sm font-medium text-blue-600">Order successful</p>
           <h1 className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
             Thank you for buying
@@ -157,7 +157,7 @@ const ThankYouPage = async ({ searchParams }: pageProps) => {
 
             <div className="mt-16 border-t border-gray-200 py-6 text-right">
               <Link
-                href={"/products"}
+                href={"/>products"}
                 className="text-sm font-medium text-blue-600 hover:text-blue-500"
               >
                 Continue Shopping &rarr;
