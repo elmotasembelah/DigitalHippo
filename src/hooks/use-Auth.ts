@@ -24,8 +24,10 @@ export const useAuth = () => {
 
       router.push("/sign-in");
       router.refresh();
+      return { success: true };
     } catch (err) {
       toast.error("something went wrong. Please try again");
+      return { success: false };
     }
   };
 

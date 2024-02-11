@@ -1,4 +1,4 @@
-import { publicProcedure, router } from "./trpc";
+import { privateProcedure, publicProcedure, router } from "./trpc";
 import { getPayloadClient } from "../get-payload";
 import { AuthCredentialsValidator } from "../lib/validators/account-credentials-validator";
 import { TRPCError } from "@trpc/server";
@@ -78,6 +78,11 @@ export const authRouter = router({
         throw new TRPCError({ code: "UNAUTHORIZED" });
       }
     }),
+  getUser: privateProcedure.query(({ ctx }) => {
+    const { user } = ctx;
+
+    return { email: user.email };
+  }),
 
   test: publicProcedure.query(() => {
     return "hello";

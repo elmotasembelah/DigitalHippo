@@ -147,6 +147,11 @@ exports.authRouter = (0, trpc_1.router)({
             });
         });
     }),
+    getUser: trpc_1.privateProcedure.query(function (_a) {
+        var ctx = _a.ctx;
+        var user = ctx.user;
+        return { email: user.email };
+    }),
     test: trpc_1.publicProcedure.query(function () {
         return "hello";
     }),
