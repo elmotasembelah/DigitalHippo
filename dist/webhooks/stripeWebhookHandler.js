@@ -43,7 +43,7 @@ var resend_1 = require("resend");
 var ReceiptEmail_1 = require("../components/emails/ReceiptEmail");
 var resend = new resend_1.Resend(process.env.RESEND_API_KEY);
 var stripeWebhookHandler = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var webhookRequest, body, signature, event, session, payload, users, user, orders, order, data, error_1;
+    var webhookRequest, body, signature, event, session, payload, users, user, orders, order, updatedOrders, data, error_1;
     var _a, _b;
     return __generator(this, function (_c) {
         switch (_c.label) {
@@ -63,10 +63,11 @@ var stripeWebhookHandler = function (req, res) { return __awaiter(void 0, void 0
                 if (!((_a = session === null || session === void 0 ? void 0 : session.metadata) === null || _a === void 0 ? void 0 : _a.userId) || !((_b = session === null || session === void 0 ? void 0 : session.metadata) === null || _b === void 0 ? void 0 : _b.orderId)) {
                     return [2 /*return*/, res.status(400).send("Webhook Error: No user present in metadata")];
                 }
-                if (!(event.type === "checkout.session.completed")) return [3 /*break*/, 8];
+                if (!(event.type === "checkout.session.completed")) return [3 /*break*/, 9];
                 return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
             case 1:
                 payload = _c.sent();
+                payload.logger.emit("the session was a success");
                 return [4 /*yield*/, payload.find({
                         collection: "users",
                         where: {
@@ -80,6 +81,7 @@ var stripeWebhookHandler = function (req, res) { return __awaiter(void 0, void 0
                 user = users[0];
                 if (!user)
                     return [2 /*return*/, res.status(404).json({ error: "No such user exists." })];
+                payload.logger.emit("the user does exist");
                 return [4 /*yield*/, payload.find({
                         collection: "orders",
                         depth: 2,
@@ -94,6 +96,8 @@ var stripeWebhookHandler = function (req, res) { return __awaiter(void 0, void 0
                 order = orders[0];
                 if (!order)
                     return [2 /*return*/, res.status(404).json({ error: "No such order exists." })];
+                payload.logger.emit("we got the right order");
+                payload.logger.emit(order.id, order._isPaid);
                 return [4 /*yield*/, payload.update({
                         collection: "orders",
                         data: {
@@ -107,9 +111,21 @@ var stripeWebhookHandler = function (req, res) { return __awaiter(void 0, void 0
                     })];
             case 4:
                 _c.sent();
-                _c.label = 5;
+                payload.logger.emit("updated _isPaid in the order");
+                return [4 /*yield*/, payload.find({
+                        collection: "orders",
+                        where: {
+                            id: {
+                                equals: session.metadata.orderId,
+                            },
+                        },
+                    })];
             case 5:
-                _c.trys.push([5, 7, , 8]);
+                updatedOrders = (_c.sent()).docs;
+                payload.logger.emit("the order after updating", updatedOrders[0].id, updatedOrders[0]._isPaid);
+                _c.label = 6;
+            case 6:
+                _c.trys.push([6, 8, , 9]);
                 return [4 /*yield*/, resend.emails.send({
                         from: "DigitalHippo <hello@joshtriedcoding.com>",
                         to: [user.email],
@@ -121,15 +137,15 @@ var stripeWebhookHandler = function (req, res) { return __awaiter(void 0, void 0
                             products: order.products,
                         }),
                     })];
-            case 6:
+            case 7:
                 data = _c.sent();
                 res.status(200).json({ data: data });
-                return [3 /*break*/, 8];
-            case 7:
+                return [3 /*break*/, 9];
+            case 8:
                 error_1 = _c.sent();
                 res.status(500).json({ error: error_1 });
-                return [3 /*break*/, 8];
-            case 8: return [2 /*return*/, res.status(200).send()];
+                return [3 /*break*/, 9];
+            case 9: return [2 /*return*/, res.status(200).send()];
         }
     });
 }); };
