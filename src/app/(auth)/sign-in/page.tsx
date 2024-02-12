@@ -155,7 +155,7 @@ const SigninPage = () => {
                 onClick={continuoAsBuyer}
               >
                 {" "}
-                Continuo as a Buyer
+                Continue as a Buyer
               </Button>
             ) : (
               <Button
