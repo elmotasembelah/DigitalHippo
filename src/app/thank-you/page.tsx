@@ -155,7 +155,7 @@ const ThankYouPage = async ({ searchParams }: pageProps) => {
               orderId={order.id}
             />
 
-            <div className="mt-16 border-t border-gray-200 py-6 text-right">
+            <div className="mt-16 border-t border-gray-200 py-6 text-center">
               <Link
                 href={"/products"}
                 className="text-sm font-medium text-blue-600 hover:text-blue-500"
