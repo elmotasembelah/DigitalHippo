@@ -69,7 +69,7 @@ const MobileNav = () => {
             <div className="mt-4">
               <ul>
                 {PRODUCT_CATEGORIES.map((category) => (
-                  <li key={category.label} className="space-y-10 px-4 pb-0  ">
+                  <li key={category.label} className="space-y-10 px-4 ">
                     <Accordion type="single" collapsible>
                       <AccordionItem value={category.value}>
                         <AccordionTrigger>{category.label}</AccordionTrigger>
