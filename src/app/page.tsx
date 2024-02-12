@@ -39,11 +39,10 @@ export default function Home() {
             Welcome to DigitalHippo. Every asset on our platform is verified by
             our team to ensure our highest quality standards
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 mt-6">
+          <div className="flex flex-col mt-6">
             <Link href="/products" className={buttonVariants()}>
               Browse Trending
             </Link>
-            <Button variant={"outline"}>Our Quality Promise &rarr;</Button>
           </div>
         </div>
         {/* products */}
