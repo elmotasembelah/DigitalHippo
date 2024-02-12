@@ -128,7 +128,7 @@ const CartPage = () => {
                             <h3 className="text-sm">
                               <Link
                                 href={`/product/${product.id}`}
-                                className="font-md text-gray-700 hover:text-gray-800"
+                                className="font-medium text-gray-900 hover:text-gray-800"
                               >
                                 {product.name}
                               </Link>
