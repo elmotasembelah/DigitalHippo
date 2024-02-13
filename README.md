@@ -39,15 +39,14 @@ Hippo Digital Store is a full-stack ecommerce platform designed for selling and 
   - Lucide React: A collection of simply beautiful open-source icons.
   - Tailwind Merge: A Tailwind CSS plugin for merging utilities.
   - Tailwind CSS Animate: A collection of ready-to-use Tailwind CSS animations.
+  - Shadcn UI: A UI toolkit for Tailwind CSS that provides pre-built components and utilities.
   - Zustand: A small, fast, and scalable state management library.
   - Sonner: A toast notification library.
 
 - **Other:**
   - TypeScript: A typed superset of JavaScript that compiles to plain JavaScript.
+  - Zod: A TypeScript-first schema declaration and validation library.
   - ESLint: A tool for identifying and reporting on patterns found in ECMAScript/JavaScript code.
-  - PostCSS & Autoprefixer: Tools for transforming CSS with JavaScript plugins.
   - Nodemon: A utility that monitors for changes in files and automatically restarts the server.
   - Dotenv: A zero-dependency module that loads environment variables from a .env file into process.env.
-  - Shadcn UI: A UI toolkit for Tailwind CSS that provides pre-built components and utilities.
-  - Zod: A TypeScript-first schema declaration and validation library.
   - Railway: A tool for deploying, managing, and scaling web applications.
