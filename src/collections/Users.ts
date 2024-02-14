@@ -51,6 +51,9 @@ export const Users: CollectionConfig = {
       admin: {
         condition: () => true,
       },
+      access: {
+        update: ({ req }) => req.user.role === "admin",
+      },
     },
 
     {

@@ -56,6 +56,12 @@ exports.Users = {
             admin: {
                 condition: function () { return true; },
             },
+            access: {
+                update: function (_a) {
+                    var req = _a.req;
+                    return req.user.role === "admin";
+                },
+            },
         },
         {
             name: "products",
