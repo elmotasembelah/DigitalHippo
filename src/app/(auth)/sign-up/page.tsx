@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Link from "next/link";
 import { Icons } from "@/components/Icons";
@@ -8,49 +8,53 @@ import { ArrowRight } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { useForm } from 'react-hook-form'
-import {zodResolver} from "@hookform/resolvers/zod"
-import { AuthCredentialsValidator, TAuthCredentialsValidator } from "@/lib/validators/account-credentials-validator";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  AuthCredentialsValidator,
+  TAuthCredentialsValidator,
+} from "@/lib/validators/account-credentials-validator";
 import { trpc } from "@/trpc/client";
 import { toast } from "sonner";
 import { ZodError } from "zod";
 import { useRouter } from "next/navigation";
 
 const SignupPage = () => {
+  const router = useRouter();
 
-  const router = useRouter()
-  
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<TAuthCredentialsValidator>({
     resolver: zodResolver(AuthCredentialsValidator),
-  })
+  });
 
-  const {mutate: signup, isLoading} = trpc.auth.createPayloadUser.useMutation({
-    onError: (error) => {
-      if(error.data?.code === "CONFLICT"){
-        toast.error("This email is already in use. Sign in instead?")
-        return
-      }
-      if (error instanceof ZodError) {
-        toast.error("Credentials are not valid, Please try again");
-        
-        return
-      }
-      
-      toast.error("Something went wrong. Please try again")
-    }
-    ,onSuccess: ({sentToEmail}) => {
-      toast.success(`Verification email sent to ${sentToEmail}`)
-      router.push(`/verify-email?to=${sentToEmail}`)
-    }
-  })
+  const { mutate: signup, isLoading } = trpc.auth.createPayloadUser.useMutation(
+    {
+      onError: (error) => {
+        if (error.data?.code === "CONFLICT") {
+          toast.error("This email is already in use. Sign in instead?");
+          return;
+        }
+        if (error instanceof ZodError) {
+          toast.error("Credentials are not valid, Please try again");
 
-  const onSubmit = ({email, password}: TAuthCredentialsValidator) => {
-    signup({email, password})
-  }
+          return;
+        }
+
+        toast.error("Something went wrong. Please try again");
+      },
+      onSuccess: ({ sentToEmail }) => {
+        toast.success(`Verification email sent to ${sentToEmail}`);
+        router.push(`/verify-email?to=${sentToEmail}`);
+      },
+    }
+  );
+
+  const onSubmit = ({ email, password }: TAuthCredentialsValidator) => {
+    signup({ email, password });
+  };
 
   return (
     <>
@@ -71,38 +75,69 @@ const SignupPage = () => {
             </Link>
           </div>
           <div className="grid gap-6 p-2">
-            <form onSubmit={handleSubmit(onSubmit)} >
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className="grid gap-2">
                 <div className="grid gap-2 py-2">
-                  <Label htmlFor='email'>Email</Label>
-                  <Input 
-                  {...register("email")}
-                  className={cn("",{
-                    "focus-visible:ring-red-500": errors.email
-                  })} placeholder="you@example.com"/>
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    {...register("email")}
+                    className={cn("", {
+                      "focus-visible:ring-red-500": errors.email,
+                    })}
+                    placeholder="you@example.com"
+                  />
                   {errors.email && (
-                    <p className="text-sm text-red-500">{errors.email.message}</p>
+                    <p className="text-sm text-red-500">
+                      {errors.email.message}
+                    </p>
                   )}
                 </div>
               </div>
               <div className="grid gap-2">
                 <div className="grid gap-2 py-2">
-                  <Label htmlFor='password'>Password</Label>
-                  <Input 
-                  {...register("password")}
-                  className={cn({
-                    "focus-visible:ring-red-500": errors.password
-                  })} 
-                  type="password"
-                  placeholder="Password"/>
+                  <Label htmlFor="password">Password</Label>
+                  <Input
+                    {...register("password")}
+                    className={cn({
+                      "focus-visible:ring-red-500": errors.password,
+                    })}
+                    type="password"
+                    placeholder="Password"
+                  />
                   {errors.password && (
-                    <p className="text-sm text-red-500">{errors.password.message}</p>
+                    <p className="text-sm text-red-500">
+                      {errors.password.message}
+                    </p>
                   )}
                 </div>
                 <Button disabled={isLoading}>Sign up</Button>
               </div>
-              </form>
+            </form>
 
+            <div className="relative">
+              <div className="absolute inset-0 items-center" aria-hidden="true">
+                <span className="w-full border-t"></span>
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">
+                  Demo
+                </span>
+              </div>
+            </div>
+
+            <div className="text-center text-muted-foreground text-">
+              <p>Only want to try the project?</p>
+              <p className="mt-2">
+                You can sign in with demo accounts in the sign-in page without
+                creating an account
+              </p>
+            </div>
+            <Link
+              href="/sign-in"
+              className={buttonVariants({ variant: "secondary" })}
+            >
+              Sign In page
+            </Link>
           </div>
         </div>
       </div>
